@@ -1,2 +1,1 @@
-# Player-Action-Logger
-A Paper Minecraft moderation plugin that logs player actions, chat, blocks, items, deaths, and bucket use with a local searchable dashboard.
+PlayerActionLogger is a Paper Minecraft moderation plugin designed to help server owners review player activity. It creates readable username-based logs, maintains a separate UUID index, tracks chat, commands, deaths, block actions, item movement, bucket use, and key server events, and includes a local searchable web dashboard. Water and lava flow logging is intentionally quiet by default to avoid log spam while still preserving bucket-use evidence for moderation.
