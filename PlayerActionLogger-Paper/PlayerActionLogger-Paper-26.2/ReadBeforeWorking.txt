@@ -1,0 +1,9 @@
+This repository contains the source code for PlayerActionLogger, a Paper Minecraft moderation plugin.
+
+The project is currently configured for Paper 26.2 by default. If you want to build or run it on a different Paper version, you will need to update the Paper API dependency in `pom.xml` and the `api-version` in `plugin.yml` to match your server version. If you are a plugin developer, this should be a normal part of adjusting the project for your own server environment.
+
+The plugin is intended for moderation and investigation. It creates readable username-based logs, keeps a separate UUID index, logs player actions such as chat, commands, deaths, block changes, item movement, bucket use, and other useful server activity, and includes a local searchable dashboard.
+
+Paper 26.2 is still experimental at the time of this project, so this should be treated as a development build. Test carefully before using it on a live server.
+
+Enjoy, and feel free to submit suggestions or pull requests.
