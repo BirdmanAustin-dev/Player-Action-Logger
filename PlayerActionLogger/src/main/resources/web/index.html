@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>PlayerActionLogger Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span>PAL</span></div>
+        <div class="brand-copy">
+          <h1>PlayerActionLogger</h1>
+          <p>Paper 26.2 • Build 60 Beta</p>
+        </div>
+      </div>
+
+      <nav aria-label="Dashboard navigation">
+        <button class="nav-item active" data-tab="overview" aria-label="Overview" aria-current="page" title="Overview"><span class="nav-icon" aria-hidden="true">⌂</span><span>Overview</span></button>
+        <button class="nav-item" data-tab="feed" aria-label="Activity Feed" title="Activity Feed"><span class="nav-icon" aria-hidden="true">≋</span><span>Activity Feed</span></button>
+        <button class="nav-item" data-tab="players" aria-label="Players" title="Players"><span class="nav-icon" aria-hidden="true">●</span><span>Players</span></button>
+        <button class="nav-item" data-tab="combat" aria-label="Combat Center" title="Combat Center"><span class="nav-icon" aria-hidden="true">⚔</span><span>Combat Center</span></button>
+        <button class="nav-item" data-tab="alerts" aria-label="Alerts" title="Alerts"><span class="nav-icon" aria-hidden="true">!</span><span>Alerts</span><span id="alertNavCount" class="nav-count">0</span></button>
+        <button class="nav-item" data-tab="insights" aria-label="Insights" title="Insights"><span class="nav-icon" aria-hidden="true">▦</span><span>Insights</span></button>
+        <button class="nav-item" data-tab="search" aria-label="Search Evidence" title="Search Evidence"><span class="nav-icon" aria-hidden="true">⌕</span><span>Search Evidence</span></button>
+        <button class="nav-item" data-tab="about" aria-label="About" title="About"><span class="nav-icon" aria-hidden="true">i</span><span>About</span></button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="serverLogsBtn" class="secondary-button">Open server log</button>
+        <button id="tokenBtn" class="ghost-button">Dashboard token</button>
+        <div class="connection-row"><span id="connectionDot" class="connection-dot"></span><span id="connectionState">Connecting…</span></div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">MODERATION INTELLIGENCE</span>
+          <h2 id="pageTitle">Server overview</h2>
+          <p id="pageSubtitle">A low-noise view of recent player behavior with direct links to raw evidence.</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="update-copy"><span>Last refresh</span><strong id="lastUpdated">Not yet</strong></div>
+          <button id="refreshBtn" class="primary-button">Refresh</button>
+        </div>
+      </header>
+
+      <section id="overview" class="panel active">
+        <section class="hero-card">
+          <div class="hero-copy">
+            <span class="eyebrow">LIVE SERVER PICTURE</span>
+            <h3 id="heroHeadline">Collecting recent activity…</h3>
+            <p id="heroDescription">The dashboard summarizes up to the last 60 minutes kept in memory. The normal text logs remain the evidence record.</p>
+          </div>
+          <div id="heroPulse" class="hero-pulse"><span></span><b>Monitoring</b></div>
+        </section>
+
+        <div id="summaryCards" class="summary-grid"></div>
+
+        <div class="section-heading">
+          <div><span class="eyebrow">CURRENT ACTIVITY</span><h3>What players are doing</h3><p>Classification is calculated from recent logged actions and does not replace the raw player logs.</p></div>
+          <button class="text-button" data-open-tab="players">View profiles →</button>
+        </div>
+        <div id="activityPlayers" class="activity-grid"><div class="empty-state">Loading activity…</div></div>
+
+        <div class="dashboard-grid two-column">
+          <section class="surface">
+            <div class="surface-heading"><div><span class="eyebrow">TIMELINE</span><h3>Recent activity</h3><p>Grouped into compact events so block actions do not flood the dashboard.</p></div><button class="text-button" data-open-tab="feed">Full feed →</button></div>
+            <div id="overviewFeed" class="feed-list"></div>
+          </section>
+          <section class="surface">
+            <div class="surface-heading"><div><span class="eyebrow">REVIEW QUEUE</span><h3>Alerts requiring attention</h3><p>Cautious prompts for human or LLM review—not automatic findings.</p></div><button class="text-button" data-open-tab="alerts">All alerts →</button></div>
+            <div id="overviewAlerts" class="alert-list"></div>
+          </section>
+        </div>
+
+        <div class="dashboard-grid two-column">
+          <section class="surface">
+            <div class="surface-heading"><div><span class="eyebrow">COMBAT</span><h3>Active and recent PvP</h3><p>Summary first, raw timeline underneath.</p></div><button class="text-button" data-open-tab="combat">Combat Center →</button></div>
+            <div id="overviewCombat"></div>
+          </section>
+          <section class="surface">
+            <div class="surface-heading"><div><span class="eyebrow">ACTIVE AREAS</span><h3>Where activity is concentrated</h3><p>A lightweight ranked-chunk view—not a rendered world map.</p></div><button class="text-button" data-open-tab="insights">All insights →</button></div>
+            <div id="overviewAreas" class="compact-area-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="feed" class="panel">
+        <div class="section-heading"><div><span class="eyebrow">ROLLING TIMELINE</span><h3>Activity feed</h3><p>Recent actions grouped by player, category, area, and short time window.</p></div><div class="filter-row" id="feedFilters"></div></div>
+        <div id="activityFeed" class="timeline-feed"><div class="empty-state">Loading activity feed…</div></div>
+      </section>
+
+      <section id="players" class="panel">
+        <div class="section-heading"><div><span class="eyebrow">PLAYER PROFILES</span><h3>Players and evidence</h3><p>Open a dashboard profile or jump directly to the username-based raw log.</p></div><input id="playerFilter" class="compact-input" placeholder="Filter players…"></div>
+        <div id="playerProfiles" class="profile-card-grid"><div class="empty-state">Loading profiles…</div></div>
+        <div class="section-heading secondary-heading"><div><span class="eyebrow">LOG FILES</span><h3>All player log files</h3></div></div>
+        <div id="playerLogs" class="player-log-grid"></div>
+      </section>
+
+      <section id="combat" class="panel">
+        <div class="section-heading"><div><span class="eyebrow">PVP EVIDENCE</span><h3>Combat Center</h3><p>PvP incidents with initiator analysis, review flags, health state, result, and raw hit timeline.</p></div><div class="legend"><span class="dot live"></span>Live <span class="dot loot"></span>Loot window <span class="dot complete"></span>Complete</div></div>
+        <div id="combatStats" class="mini-summary-grid"></div>
+        <div id="combatList" class="combat-list"><div class="empty-state">Loading combat incidents…</div></div>
+      </section>
+
+      <section id="alerts" class="panel">
+        <div class="section-heading"><div><span class="eyebrow">AUDIT QUEUE</span><h3>Alerts and review signals</h3><p>Combat flags and activity-pattern alerts, sorted by severity and recency.</p></div><div class="filter-row" id="alertFilters"></div></div>
+        <div id="alertsList" class="alerts-page-list"><div class="empty-state">Loading alerts…</div></div>
+      </section>
+
+      <section id="insights" class="panel">
+        <div class="section-heading"><div><span class="eyebrow">ROLLING STATISTICS</span><h3>Server activity insights</h3><p>All numbers cover the current in-memory window and reset after a plugin restart.</p></div></div>
+        <div id="statisticsCards" class="summary-grid statistics-grid"></div>
+        <div class="dashboard-grid two-column insights-grid">
+          <section class="surface"><div class="surface-heading"><div><span class="eyebrow">ACTIVITY MIX</span><h3>Classification totals</h3></div></div><div id="activityChart" class="bar-chart"></div></section>
+          <section class="surface"><div class="surface-heading"><div><span class="eyebrow">ACTION MIX</span><h3>Recorded event totals</h3></div></div><div id="eventChart" class="bar-chart"></div></section>
+        </div>
+        <section class="surface active-areas-surface"><div class="surface-heading"><div><span class="eyebrow">LIGHTWEIGHT HEATMAP</span><h3>Frequently active areas</h3><p>Ranks chunks by visits, work, block changes, and combat. Nothing is rendered as a map or written to a database.</p></div></div><div id="activeAreas" class="area-grid"></div></section>
+      </section>
+
+      <section id="search" class="panel">
+        <section class="surface search-surface">
+          <div class="surface-heading"><div><span class="eyebrow">RAW EVIDENCE</span><h3>Search all logs</h3><p>Searches player logs, the server log, and completed combat files. All entered terms must appear on the same line.</p></div></div>
+          <div class="searchbar"><input id="term1" placeholder="First term, e.g. ELYTRA"><input id="term2" placeholder="Second term, e.g. PICKUP"><input id="term3" placeholder="Third term, optional"><button id="searchBtn" class="primary-button">Search</button></div>
+        </section>
+        <div id="searchResults"></div>
+      </section>
+
+      <section id="about" class="panel">
+        <div class="about-grid">
+          <section class="surface"><span class="eyebrow">EVIDENCE MODEL</span><h3>Readable text logs remain primary</h3><p>Normal actions stay in <code>logs/players/&lt;username&gt;.log</code>. UUID history stays in <code>logs/players/_uuid-index.csv</code>. PvP incident files stay in <code>logs/combat/</code>.</p></section>
+          <section class="surface"><span class="eyebrow">LIGHTWEIGHT DESIGN</span><h3>No database or movement flood</h3><p>Disk writes use a background writer thread. Dashboard summaries are kept in memory. Movement is used only for chunk-level context and is not written line by line.</p></section>
+          <section class="surface"><span class="eyebrow">IMPORTANT LIMIT</span><h3>Flags are not verdicts</h3><p>The plugin cannot know voice-chat warnings, permission given elsewhere, or every off-server fact. Alerts point reviewers to evidence.</p></section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="logModal" class="modal">
+    <div class="modal-header"><div><span class="eyebrow">RAW EVIDENCE</span><h2 id="logModalTitle"></h2></div><button class="modal-close" data-close="logModal">Close</button></div>
+    <div id="logModalBody" class="modal-body"></div>
+  </dialog>
+
+  <dialog id="combatModal" class="modal combat-modal">
+    <div class="modal-header"><div><span class="eyebrow">COMBAT INCIDENT</span><h2 id="combatModalTitle"></h2></div><button class="modal-close" data-close="combatModal">Close</button></div>
+    <div id="combatModalBody" class="modal-body"></div>
+  </dialog>
+
+  <dialog id="profileModal" class="modal profile-modal">
+    <div class="modal-header"><div><span class="eyebrow">PLAYER PROFILE</span><h2 id="profileModalTitle"></h2></div><button class="modal-close" data-close="profileModal">Close</button></div>
+    <div id="profileModalBody" class="modal-body"></div>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>
