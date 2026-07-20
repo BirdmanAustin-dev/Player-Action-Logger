@@ -8,7 +8,6 @@
 - Added validation for invalid port values with a warning and fallback to port 8080.
 - Improved dashboard startup reporting so the plugin only announces a dashboard URL after a successful bind.
 - Added a clear warning when the configured address or port is unavailable.
-- Added Codex build and verification instructions.
 
 ## 0.8.0
 
