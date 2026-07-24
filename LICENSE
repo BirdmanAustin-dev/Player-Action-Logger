@@ -1,25 +1,34 @@
-Birdman Noncommercial License
+Birdman Software License
+Version 1.0
 
 Copyright (c) 2026 Birdman
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to use, copy, modify, merge, publish, and redistribute the Software, subject to the following conditions:
+Permission is granted, free of charge, to use, copy, modify, and redistribute this software and its documentation (the “Software”), subject to the following conditions:
 
-1. Noncommercial Use
+1. Free Use
 
-The Software may not be sold, sublicensed for a fee, monetized, or otherwise used primarily for commercial gain without the prior written permission of the copyright holder.
+The Software may be used for personal, educational, nonprofit, governmental, or commercial purposes, including on monetized Minecraft servers and as part of paid hosting, installation, configuration, maintenance, or support services.
 
-This Software was created and shared for fun without compensation. Please do not use the Software, modified versions of the Software, or redistributed copies of the Software to generate revenue or financial profit without first obtaining permission from the copyright holder.
+2. No Sale of the Software
 
-2. Attribution
+You may not sell, rent, lease, place behind a paywall, sublicense for a fee, or otherwise charge for a copy of, access to, or a license for the Software or any modified version without prior written permission from Birdman.
 
-The above copyright notice, this license, and appropriate credit to Birdman as the original author must be included in all copies or substantial portions of the Software.
+You may charge for services involving the Software, provided the charge is for the service and not for the Software itself.
 
-You may modify, republish, or redistribute the Software, but you may not falsely claim that you created the original Software or omit attribution in a manner that misrepresents its authorship.
+3. Redistribution and Attribution
 
-If you distribute a modified version, you should clearly identify that modifications were made and should not imply that Birdman created or endorsed those modifications.
+Original or modified copies may be redistributed only free of charge.
 
-3. No Warranty
+All redistributed copies must include this copyright notice and license and must give appropriate credit to Birdman as the original author.
 
-THE SOFTWARE IS PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT.
+Modified versions must clearly state that changes were made and must not imply that Birdman created, approved, or endorsed those changes.
 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+4. Termination
+
+Your rights under this license automatically terminate if you violate its terms. Rights are restored if the violation is corrected within 30 days after you become aware of it, unless Birdman denies reinstatement because of an intentional or repeated violation.
+
+5. No Warranty
+
+THE SOFTWARE IS PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS USE, MODIFICATION, OR DISTRIBUTION.
