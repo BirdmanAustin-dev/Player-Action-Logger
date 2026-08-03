@@ -114,7 +114,6 @@ The build #92 patch includes a second moderation-correctness pass:
 - successful bed entry is distinguished from failed attempts;
 - structured combat signals persist in combat files and reload after restart.
 
-See `AUDIT_FIXES.md` for the full audit-to-fix mapping.
 
 ## Automatic server backups
 
