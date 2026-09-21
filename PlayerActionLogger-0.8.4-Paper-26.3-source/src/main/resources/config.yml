@@ -1,0 +1,81 @@
+web-interface:
+  enabled: true
+  port: 8080
+  bind-address: "127.0.0.1"
+  access-token: ""
+
+logging:
+  include-chat: true
+  include-commands: true
+  include-ip-addresses: false
+  max-search-results-per-file: 100
+  include-uuid-in-player-log-lines: false
+  inventory:
+    container-actions-only: true
+    include-player-inventory-clicks: false
+  retention:
+    enabled: false
+    days: 7
+    run-interval-hours: 24
+  fluid-flow:
+    enabled: false
+    aggregate: true
+    aggregate-interval-seconds: 30
+
+# Best-effort live ZIP backups of the full server folder; not point-in-time snapshots. Disabled by default.
+backups:
+  enabled: false
+  interval-hours: 12
+  retention-days: 3
+  folder: "backups/PlayerActionLogger"
+
+combat:
+  enabled: true
+  incident-timeout-seconds: 20
+  incident-link-seconds: 10
+  incident-link-radius-blocks: 48.0
+  aggression-memory-seconds: 60
+  combat-logout-review-seconds: 10
+  post-death-loot-seconds: 45
+  post-death-loot-radius-blocks: 12.0
+  spawn-review-seconds: 20
+  respawn-return-tracking-seconds: 90
+  respawn-radius-blocks: 16.0
+  return-to-fight-radius-blocks: 24.0
+  repeated-kill-window-seconds: 300
+  environmental-attribution-seconds: 20
+  environmental-attribution-radius-blocks: 12.0
+  pve:
+    enabled: true
+    log-passive-mobs: false
+
+activity:
+  enabled: true
+  window-minutes: 60
+  idle-minutes: 10
+  max-events-per-player: 5000
+  exploration:
+    enabled: true
+    minimum-seconds-between-events: 45
+    minimum-chunk-distance: 4
+    classification-minimum-events: 4
+    breakdown-weight-cap: 8
+  active-areas-limit: 10
+  active-area-min-score: 6
+
+moderation-alerts:
+  reopen-after-quiet-minutes: 15
+
+moderation-actions:
+  enabled: true
+  require-access-token: true
+  default-temporary-ban-hours: 1
+  maximum-temporary-ban-days: 30
+
+dashboard:
+  feed-bucket-minutes: 5
+  feed-limit: 60
+  profile-feed-limit: 20
+  alert-limit: 40
+  history:
+    allow-day-deletion: true
