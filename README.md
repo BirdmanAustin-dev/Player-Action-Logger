@@ -1,11 +1,11 @@
-# PlayerActionLogger 0.8.3
+# PlayerActionLogger 0.8.4
 
 PlayerActionLogger is a lightweight Paper moderation and evidence plugin by **BirdmanAustin-dev**. It keeps readable username-based logs while adding PvP incident reconstruction, activity summaries, player history, durable alerts, dashboard moderation controls, and optional server backups.
 
 ## Target
 
-- Paper 26.2 build #92 stable
-- Paper API `26.2.build.92-stable`
+- Paper 26.3 build #28 alpha
+- Paper API `26.3.build.28-alpha`
 - Java 25
 - Maven
 - Paper only; not Spigot
@@ -19,8 +19,57 @@ mvn clean package
 Expected output:
 
 ```text
-target/PlayerActionLogger-Paper-0.8.3.jar
+target/PlayerActionLogger-Paper-26.3_0.8.4.jar
 ```
+
+## Updating from 0.8.3
+
+Stop the server, replace the old PlayerActionLogger JAR in the plugins folder with
+PlayerActionLogger-Paper-26.3_0.8.4.jar, then restart the server using Java 25.
+Keep the existing PlayerActionLogger data folder and configuration. The dashboard
+assets are refreshed automatically on startup; reload the dashboard page after upgrading.
+
+Activity rows in Overview, Activity Feed, and player profiles now open only the selected
+group's evidence. They retain the exact timestamp and action captured when each logged
+event occurred. Group links distinguish the player, time bucket, category, world, and chunk.
+Raw-log buttons still open the complete player log. Events that do not produce a raw log
+(such as sampled travel or chat with logging disabled) show an explicitly labeled activity
+observation without exposing disabled chat/command content.
+
+Evidence follows the existing rolling activity window and event cap; expired links show
+a message directing staff to player history. Grouped inventory evidence reflects the
+existing sampling rules; full inventory logs remain available through Raw log.
+The retained live evidence is in memory and disappears on restart, like the activity feed.
+
+## Verification
+
+Run Java regression checks and compile the shaded plugin:
+
+```bash
+mvn verify
+```
+
+Run dashboard regression checks with Node.js (only needed for these checks):
+
+```bash
+node --test src/test/js/activity-evidence.test.cjs
+```
+
+Release verification: compilation against Paper 26.3 build 28 succeeded; four Java
+and four dashboard regression tests passed. No live Minecraft server test was run.
+Paper's available 26.3 API builds were alpha at the time of this update; this build
+does not imply live-server certification or compatibility with every later Paper build.
+
+## Compatibility review
+
+- [Minecraft 26.3 release notes](https://www.minecraft.net/en-us/article/minecraft-java-edition-26-3)
+- [Paper 26.3 API documentation](https://jd.papermc.io/paper/26.3/)
+- [Published Paper API versions](https://repo.papermc.io/repository/maven-public/io/papermc/paper/paper-api/maven-metadata.xml)
+
+Minecraft 26.3 removes some vanilla server log lines. This plugin records Bukkit/Paper
+events into its own files and does not parse the vanilla server console log, so that
+change does not require a replacement log parser. The plugin uses public Paper/Bukkit
+APIs and compiled against the 26.3 API without additional API migration changes.
 
 ## Main data
 
@@ -113,7 +162,6 @@ The build #92 patch includes a second moderation-correctness pass:
 - API requests authenticate before expensive reads, URL query tokens are not accepted, and the web server uses a bounded worker pool;
 - successful bed entry is distinguished from failed attempts;
 - structured combat signals persist in combat files and reload after restart.
-
 
 ## Automatic server backups
 
